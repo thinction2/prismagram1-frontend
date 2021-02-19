@@ -4,6 +4,7 @@ import TextareaAutosize from "react-autosize-textarea";
 import FatText from "../FatText";
 import Avatar from "../Avatar";
 import { Comment as CommentIcon, HeartEmpty, HeartFull } from "../Icons";
+import { Link } from "react-router-dom";
 
 const Post = styled.div`
   ${(props) => props.theme.whiteBox}
@@ -11,6 +12,9 @@ const Post = styled.div`
   max-width: 600px;
   margin-bottom: 25px;
   user-select: none;
+  a {
+    color: inherit;
+  }
 `;
 
 const Header = styled.header`
@@ -94,12 +98,21 @@ const Textarea = styled(TextareaAutosize)`
   }
 `;
 
-const Comments = styled.ul`
+const Caption = styled.div`
   margin-top: 10px;
+  font-weight: 400;
+  span {
+    margin-right: 5px;
+  }
+`;
+
+const Comments = styled.ul`
+  margin-top: 7px;
 `;
 
 const Comment = styled.li`
   margin-bottom: 7px;
+  font-weight: 400;
   span {
     margin-right: 5px;
   }
@@ -108,6 +121,7 @@ const Comment = styled.li`
 const PostPresenter = ({
   user: { username, avatar },
   location,
+  caption,
   files,
   isLiked,
   likeCount,
@@ -121,9 +135,13 @@ const PostPresenter = ({
 }) => (
   <Post>
     <Header>
-      <Avatar size="sm" url={avatar} />
+      <Link to={`/${username}`}>
+        <Avatar size="sm" url={avatar} />
+      </Link>
       <UserColumn>
-        <FatText text={username} />
+        <Link to={`/${username}`}>
+          <FatText text={username} />
+        </Link>
         <Location>{location}</Location>
       </UserColumn>
     </Header>
@@ -150,6 +168,10 @@ const PostPresenter = ({
       <FatText
         text={likeCount === undefined ? "0 like" : `${likeCount} likes`}
       />
+      <Caption>
+        <FatText text={username} />
+        {caption}
+      </Caption>
       {comments && (
         <Comments>
           {comments.map((comment) => (

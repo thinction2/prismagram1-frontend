@@ -19,7 +19,7 @@ const Header = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 25px 0;
+  padding: 10px 0;
   z-index: 2;
 `;
 
